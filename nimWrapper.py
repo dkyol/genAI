@@ -12,9 +12,6 @@ app = Flask(__name__)
 def handle_data():
     if request.method == 'POST':
         query = request.get_json()
-
-        #print('Question:', query['question'])
-        print(os.getenv('KEY'))
         
         client = ChatNVIDIA(
             model = "meta/llama-3.1-405b-instruct",
@@ -25,8 +22,9 @@ def handle_data():
         )
         
         answer = []
+        
         for chunk in client.stream([{"role": "user", "content" : query['question']}]): 
-            #print(chunk.content, end="")
+   
             answer.append(chunk.content+"")
 
     return jsonify(''.join(answer))
