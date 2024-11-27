@@ -24,7 +24,6 @@ def handle_data():
         answer = []
         
         for chunk in client.stream([{"role": "user", "content" : query['question']}]): 
-   
             answer.append(chunk.content+"")
 
     return jsonify(''.join(answer))
@@ -33,4 +32,4 @@ def handle_data():
 if __name__ == '__main__':
     app.run(debug=True)
 
-# curl -H "Content-Type: application/json" -d "{\"question\": \"question\"}" -X POST http://127.0.0.1:5000/response
+# curl -H "Content-Type: application/json" -d "{\"question\": \"How old is Michael Jordan\"}" -X POST http://127.0.0.1:5000/response
